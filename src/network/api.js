@@ -1,5 +1,7 @@
-export const API_URL = "http://localhost:8000/";
+// export const API_URL = "http://localhost:8000/";
 // export const API_URL = "http://192.168.0.108:8000/";
+export const API_URL =
+  "https://affection-printing-server-naeymc145-sohidul-islam.vercel.app/";
 
 // USERS @get - retrieve data, @post - create data @put - update data @delete - delete data (CRUD operations)
 export const USERS = `${API_URL}api/user`;
