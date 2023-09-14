@@ -43,6 +43,7 @@ function UserCard({ user, getCurrentUser, onClickDeleteButton }) {
           primaryText={user?.name}
           secondaryText={user?.email}
           tertiaryText={user?.phone}
+          imageUrl={user?.image}
         />
       </Stack>
 

@@ -2,7 +2,7 @@ import { Avatar, Stack, Typography } from "@mui/material";
 import React from "react";
 import { stringAvatar } from "../../Customers/UserAvater";
 
-export default function UserAvater({ name, id, idStyle, nameStyle }) {
+export default function UserAvater({ name, imageUrl, id, idStyle, nameStyle }) {
   return (
     <Stack
       direction={"row"}
@@ -10,7 +10,10 @@ export default function UserAvater({ name, id, idStyle, nameStyle }) {
       gap={3}
       sx={{ width: "100%" }}
     >
-      <Avatar {...stringAvatar(name || "primaryText", { sm: 60, md: 80 })} />
+      <Avatar
+        {...stringAvatar(name || "primaryText", { sm: 60, md: 80 })}
+        src={imageUrl}
+      />
       <Stack>
         {name && (
           <Typography

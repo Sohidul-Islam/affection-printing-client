@@ -21,6 +21,8 @@ AXIOS.interceptors.request.use(
     // }
 
     config.headers["Content-Type"] = "application/json";
+    config.headers["Access-Control-Allow-Origin"] = "*";
+
     // if (!config?.noAuth) {
     //   if (accessToken) {
     //     config.headers.Authorization = `Bearer ${accessToken}`;

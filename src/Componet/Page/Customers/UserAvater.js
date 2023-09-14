@@ -50,6 +50,7 @@ function UserAvater({
   styleForSecondaryText = {},
   styleForTertiaryText = {},
   onClickPrimaryText,
+  imageUrl,
 }) {
   const theme = useTheme();
   return (
@@ -59,7 +60,7 @@ function UserAvater({
       gap={3}
       sx={{ width: "100%" }}
     >
-      <Avatar {...stringAvatar(primaryText || "primaryText")} />
+      <Avatar {...stringAvatar(primaryText || "primaryText")} src={imageUrl} />
       <Stack>
         {primaryText && (
           <Typography

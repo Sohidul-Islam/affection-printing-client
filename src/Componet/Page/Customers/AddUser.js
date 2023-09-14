@@ -13,11 +13,24 @@ function AddUser({ onClose, addUserQuery, currentUser }) {
     setNewUser((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const onSubmitUser = () => {
-    const isValidated = validateUserData(newUser);
+  const onDrop = (acceptedFiles) => {
+    const newFiles = acceptedFiles.map((file) =>
+      Object.assign(file, {
+        preview: URL.createObjectURL(file),
+      })
+    );
+    console.log("newFiles", newFiles);
+    setNewUser((prev) => ({
+      ...prev,
+      image: newFiles,
+    }));
+  };
+
+  const onSubmitUser = async () => {
+    const isValidated = await validateUserData(newUser);
 
     if (isValidated?.status) {
-      addUserQuery.mutate(newUser);
+      addUserQuery.mutate(isValidated?.data);
       return;
     }
     successMsg(isValidated?.message);
@@ -108,6 +121,24 @@ function AddUser({ onClose, addUserQuery, currentUser }) {
             placeholder: "Enter your VAT No here",
             min: 0,
             value: newUser?.vatNo,
+            onChange: onChangeHandler,
+          }}
+        />
+
+        <StyledInputForm
+          label={"Profile Photo"}
+          type="file"
+          onKeyUp={(e) => {
+            if (e.key === "Enter") {
+              onSubmitUser();
+            }
+          }}
+          inputProps={{
+            type: "text",
+            name: "image",
+            placeholder: "Enter your VAT No here",
+            onDrop,
+            files: newUser?.image,
             onChange: onChangeHandler,
           }}
         />

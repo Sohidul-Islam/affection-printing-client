@@ -1,6 +1,10 @@
-// export const API_URL = "http://localhost:8000/";
+export const API_URL = "http://localhost:8000/";
 // export const API_URL = "http://192.168.0.108:8000/";
-export const API_URL = "https://affection-printing-server.vercel.app/";
+// export const API_URL = "https://affection-printing-server.vercel.app/";
+
+export const imageUploadApiKey = "56c4a7ca54b76bd22d6fa47aba65358e";
+
+export const IMAGE_UPLOAD = "https://api.imgbb.com/1/upload";
 
 // USERS @get - retrieve data, @post - create data @put - update data @delete - delete data (CRUD operations)
 export const USERS = `${API_URL}api/user`;

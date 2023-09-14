@@ -11,7 +11,11 @@ function Profile({ data }) {
   console.log("getUserQuery", data);
   return (
     <Stack>
-      <UserAvater name={data?.user?.name} id={`UID: ${data?.user?._id}`} />
+      <UserAvater
+        imageUrl={data?.user?.image}
+        name={data?.user?.name}
+        id={`UID: ${data?.user?._id}`}
+      />
 
       <Grid container spacing={4} mt={4}>
         <Grid item xs={12} md={6} lg={3}>

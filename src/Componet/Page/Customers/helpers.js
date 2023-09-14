@@ -1,3 +1,6 @@
+import { getImageUrl } from "../../Common/Shared/image";
+import { successMsg } from "../../Shared/SuccessMsg";
+
 export const initialQueryParam = {
   searchKey: "",
   sortBy: "",
@@ -14,7 +17,7 @@ const initialData = {
   vatNo: "",
 };
 
-export const validateUserData = (userData) => {
+export const validateUserData = async (userData) => {
   const status = {
     status: false,
   };
@@ -35,7 +38,21 @@ export const validateUserData = (userData) => {
     return status;
   }
 
+  if (userData?.image?.length) {
+    successMsg("Please wait untill image uploading");
+    const imageUrl = await getImageUrl(userData?.image[0]);
+
+    if (!imageUrl) {
+      return { status: false, message: "Image not upload" };
+    }
+
+    status.status = true;
+    status.data = { ...userData, image: imageUrl };
+    return status;
+  }
+
   status.status = true;
+  status.data = { ...userData };
   return status;
 };
 
@@ -46,9 +63,10 @@ export const getUserData = (data) => {
     phone: "",
     email: "",
     vatNo: "",
+    image: [],
   };
   if (data?._id) {
-    return data;
+    return { ...data, image: [{ preview: data?.image }] };
   }
 
   return initialData;

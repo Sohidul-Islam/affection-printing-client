@@ -3,6 +3,8 @@ import React from "react";
 import StyledInput from "../../Component/StyledInput";
 import StyledDatePicker from "../../Component/StyledDatePicker";
 import StyledAutocomplete from "../../Component/StyledAutocomplete";
+import StyledFileDropzone from "./StyledFileDropzone";
+import ImagePreview from "./ImagePreview";
 
 function StyledInputForm({
   label,
@@ -111,6 +113,30 @@ function StyledInputForm({
               }}
               readOnly={inputProps.readOnly}
             />
+          </Stack>
+        )}
+
+        {type === "file" && (
+          <Stack gap="30px" position="relative">
+            <Box>
+              <StyledFileDropzone {...(inputProps || {})} />
+              {inputProps.helperText1 && (
+                <Typography pt={2} variant="body3" display="block">
+                  {inputProps.helperText1}
+                </Typography>
+              )}
+              {inputProps.helperText2 && (
+                <Typography variant="body3">
+                  {inputProps.helperText2}
+                </Typography>
+              )}
+            </Box>
+            {inputProps.files?.length > 0 && (
+              <ImagePreview
+                files={inputProps.files}
+                readOnly={inputProps.readOnly}
+              />
+            )}
           </Stack>
         )}
       </Stack>
