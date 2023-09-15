@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from "@react-pdf/renderer";
 import { getAmountInWord } from "./../../Page/AddBill/helpers";
 import moment from "moment";
-import { viewDuesOrNot } from "./helpers";
+import { viewDuesOrNot } from "../helpers";
 
 const styles = StyleSheet.create({
   table: {

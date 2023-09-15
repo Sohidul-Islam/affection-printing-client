@@ -29,11 +29,3 @@ export const getHeight = (data, length) => {
     }
   }
 };
-
-export const viewDuesOrNot = (data) => {
-  const isAddedDues = data?.dues?.length > 0;
-  const isExistDues =
-    data?.dues?.reduce((prev, item) => prev + item?.due, 0) > 0;
-
-  return isAddedDues && isExistDues;
-};

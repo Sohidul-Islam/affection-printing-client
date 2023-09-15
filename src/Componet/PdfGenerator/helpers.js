@@ -90,14 +90,26 @@ export const staticData = {
 };
 
 const getBillData = (data, convertedDate) => {
-  const mergedDue = data?.dues.sort((a, b) => b?.billNo - a?.billNo);
+  const mergedDue = data?.dues?.sort((a, b) => b?.billNo - a?.billNo);
   const totalDue = mergedDue.reduce((prev, item) => prev + item?.due, 0);
 
+  const finalDues = totalDue > 0 ? mergedDue : [];
+  console.log("finalDues", finalDues, totalDue);
   if (!data?.showIndividualDues) {
-    const [first, ...rest] = mergedDue;
+    const [first, ...rest] = finalDues;
+
+    if (totalDue > 0) {
+      return {
+        ...data,
+        dues: [{ ...first, due: totalDue }],
+        serialNo: data?.billNo,
+        date: moment(convertedDate).format("DD MMMM, YYYY"),
+      };
+    }
+
     return {
       ...data,
-      dues: [{ ...first, due: totalDue }],
+      dues: [],
       serialNo: data?.billNo,
       date: moment(convertedDate).format("DD MMMM, YYYY"),
     };
@@ -105,6 +117,7 @@ const getBillData = (data, convertedDate) => {
 
   return {
     ...data,
+    dues: finalDues,
     serialNo: data?.billNo,
     date: moment(convertedDate).format("DD MMMM, YYYY"),
   };
@@ -134,4 +147,10 @@ export const getPdfData = (data, type) => {
       serialNo: data?.quotationNo,
       date: moment(convertedDate).format("DD MMMM, YYYY"),
     };
+};
+
+export const viewDuesOrNot = (data) => {
+  const isAddedDues = data?.dues?.length > 0;
+  console.log("call", data?.dues);
+  return isAddedDues;
 };

@@ -231,6 +231,31 @@ function Table({ data = [], type, totalPages, queryParams, setQueryParams }) {
     {
       type: ["transaction"],
       id: 3,
+      headerName: "Type",
+      field: "type",
+      flex: 1.5,
+      minWidth: 120,
+      sortable: false,
+      renderCell: ({ value }) => (
+        <Typography
+          variant="h6"
+          sx={{
+            textOverflow: "ellipsis",
+            maxWidth: "300px",
+            display: "-webkit-box",
+            overflow: "hidden",
+            WebkitBoxOrient: "vertical",
+            WebkitLineClamp: 1,
+            textTransform: "capitalize",
+          }}
+        >
+          {value}
+        </Typography>
+      ),
+    },
+    {
+      type: ["transaction"],
+      id: 3,
       headerName: "Amount",
       field: "payment",
       flex: 1.5,
