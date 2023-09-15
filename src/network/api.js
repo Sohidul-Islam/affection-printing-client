@@ -1,6 +1,6 @@
-export const API_URL = "http://localhost:8000/";
+// export const API_URL = "http://localhost:8000/";
 // export const API_URL = "http://192.168.0.108:8000/";
-// export const API_URL = "https://affection-printing-server.vercel.app/";
+export const API_URL = "https://affection-printing-server.vercel.app/";
 
 export const imageUploadApiKey = "56c4a7ca54b76bd22d6fa47aba65358e";
 
