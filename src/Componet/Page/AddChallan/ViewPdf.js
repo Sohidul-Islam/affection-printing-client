@@ -1,19 +1,9 @@
 import React from "react";
-import {
-  Box,
-  Button,
-  CircularProgress,
-  IconButton,
-  Stack,
-  Typography,
-  useTheme,
-} from "@mui/material";
+import { Box, Button, CircularProgress, useTheme } from "@mui/material";
 import PdfGenerator, { MyDocument } from "../../PdfGenerator";
 
 import ModalContainer from "../../Common/ModalContainer";
-import { getPdfData, staticData } from "../../PdfGenerator/helpers";
 import { PDFDownloadLink } from "@react-pdf/renderer";
-import moment from "moment";
 import { getPdfFileName } from "./helpers";
 import { Download } from "@mui/icons-material";
 

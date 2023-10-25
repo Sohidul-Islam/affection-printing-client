@@ -21,18 +21,6 @@ export const uploadImage = async (image) => {
   }
 };
 
-const testuploadImage = async (img) => {
-  let body = new FormData();
-  body.set("key", API_URL.imageUploadApiKey);
-  body.append("image", img);
-
-  return axios({
-    method: "post",
-    url: "https://api.imgbb.com/1/upload",
-    data: body,
-  });
-};
-
 export const getImageUrl = async (image) => {
   if (!image?.name) {
     return image?.preview;

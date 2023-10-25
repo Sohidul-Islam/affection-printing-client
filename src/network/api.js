@@ -2,7 +2,7 @@
 // export const API_URL = "http://192.168.0.108:8000/";
 export const API_URL = "https://affection-printing-server.vercel.app/";
 
-export const imageUploadApiKey = "56c4a7ca54b76bd22d6fa47aba65358e";
+export const imageUploadApiKey = "c104a310afcf00dd9cf4d3119c8e359c";
 
 export const IMAGE_UPLOAD = "https://api.imgbb.com/1/upload";
 

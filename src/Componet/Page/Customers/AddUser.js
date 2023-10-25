@@ -56,6 +56,7 @@ function AddUser({ onClose, addUserQuery, currentUser }) {
             onChange: onChangeHandler,
           }}
         />
+
         <StyledInputForm
           label={"Address *"}
           type="normal"

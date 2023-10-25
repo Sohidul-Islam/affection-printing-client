@@ -7,7 +7,6 @@ import {
   Modal,
   debounce,
   createFilterOptions,
-  Checkbox,
 } from "@mui/material";
 
 import { useEffect, useMemo, useState } from "react";

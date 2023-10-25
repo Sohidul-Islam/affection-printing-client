@@ -66,8 +66,8 @@ function StyledInputForm({
                 fontWeight: "500",
                 fontSize: "15px",
                 color: theme.palette.text.primary,
-                ...(inputProps?.sx || {}),
               },
+              ...(inputProps?.sx || {}),
             }}
           />
         )}

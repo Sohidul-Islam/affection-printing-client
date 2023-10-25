@@ -16,11 +16,12 @@ import { PageHeader } from "./Header";
 import { CustomerInfo } from "./CustomerAddress";
 import { PageFooter } from "./Footer";
 import { Table } from "./Table";
-import { getPdfData, staticData } from "./helpers";
+import { getPdfData } from "./helpers";
 
 import PoppinsReguler from "../../assets/Fonts/Poppins-Regular.ttf";
 import PoppinsBold from "../../assets/Fonts/Poppins-Bold.ttf";
 import BanglaFont from "../../assets/Fonts/Bangla/SutonnyOMJunicode.ttf";
+import BanglaFontBold from "../../assets/Fonts/Bangla/SutonnyMJ-Bold.ttf";
 
 const styles = StyleSheet.create({
   page: {
@@ -77,6 +78,11 @@ export const MyDocument = ({ data, type }) => {
     fonts: [
       {
         src: BanglaFont,
+        fontWeight: "400",
+      },
+      {
+        src: BanglaFont,
+        fontWeight: "700",
       },
     ],
   });
