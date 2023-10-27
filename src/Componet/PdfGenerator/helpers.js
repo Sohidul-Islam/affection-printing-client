@@ -1,5 +1,4 @@
 import moment from "moment";
-import { convertStringToDate } from "../Common/Component/helpers";
 
 export const staticData = {
   challanNo: 1,

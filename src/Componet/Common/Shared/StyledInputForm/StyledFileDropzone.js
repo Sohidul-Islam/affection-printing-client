@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import { Upload } from "@mui/icons-material";
 import { useMemo } from "react";
 import { useDropzone } from "react-dropzone";
@@ -50,7 +49,7 @@ export default function StyledFileDropzone({ text, readOnly, ...args }) {
       ...(isDragReject ? rejectStyle : {}),
       ...(readOnly ? readonlyStyle : {}),
     }),
-    [isFocused, isDragAccept, isDragReject, readOnly]
+    [isFocused, isDragAccept, isDragReject, readOnly],
   );
 
   return (

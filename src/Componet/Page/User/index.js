@@ -1,14 +1,14 @@
-import { Box, Typography } from "@mui/material";
-import React, { useState } from "react";
+import { Box } from "@mui/material";
+import React from "react";
 import { useParams } from "react-router-dom";
+import * as API_URL from "../../../network/api";
+import AXIOS from "../../../network/axios";
 import PageTop from "../../Common/Component/PageTop";
 import Profile from "./Profile/Profile";
 import UserActivity from "./UserActivity";
-import * as API_URL from "../../../network/api";
-import AXIOS from "../../../network/axios";
 
-import Loader from "../../Common/Component/Loader/Loader";
 import { useQuery } from "react-query";
+import Loader from "../../Common/Component/Loader/Loader";
 import { successMsg } from "../../Shared/SuccessMsg";
 
 const breadcrumbs = [
@@ -34,7 +34,7 @@ function User() {
           successMsg("User Not Found");
         }
       },
-    }
+    },
   );
 
   return (

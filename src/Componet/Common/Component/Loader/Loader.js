@@ -1,4 +1,4 @@
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 import React from "react";
 
 import loader from "../../../../assets/loader.gif";
@@ -7,10 +7,10 @@ import LoaderText from "./LoaderText";
 function Loader() {
   return (
     <Stack
-      height="80vh"
-      alignItems="center"
+      height='80vh'
+      alignItems='center'
       alignContent={"center"}
-      justifyContent="center"
+      justifyContent='center'
     >
       <Stack
         sx={{
@@ -22,7 +22,7 @@ function Loader() {
       >
         <img
           src={loader}
-          alt="Loading"
+          alt='Loading'
           style={{
             width: "250px",
             position: "absolute",

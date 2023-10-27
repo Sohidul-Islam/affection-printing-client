@@ -1,11 +1,18 @@
-
-import { getAuth, getIdToken, GoogleAuthProvider, onAuthStateChanged, signInWithPopup,signOut  } from "firebase/auth";
+/* eslint-disable no-unused-vars */
+import {
+  getAuth,
+  getIdToken,
+  GoogleAuthProvider,
+  onAuthStateChanged,
+  signInWithPopup,
+  signOut,
+} from 'firebase/auth';
+import { useEffect, useState } from 'react';
 import { firebaseInit } from './../Firebase/index';
-import { useEffect, useState } from "react";
 
 function useFirebase() {
-  const [user,setUser] = useState({});
-  const [token,setToken] = useState("");
+  const [user, setUser] = useState({});
+  const [token, setToken] = useState('');
   firebaseInit();
   const googleProvider = new GoogleAuthProvider();
   const auth = getAuth();
@@ -18,7 +25,7 @@ function useFirebase() {
         // The signed-in user info.
         const user = result.user;
         setUser(user);
-        
+
         // IdP data available using getAdditionalUserInfo(result)
         // ...
       })
@@ -34,26 +41,28 @@ function useFirebase() {
       });
   };
 
-  const logout = ()=>{
-    signOut(auth).then(() => {
-      // Sign-out successful.
-    }).catch((error) => {
-      // An error happened.
-    });
-  }
+  const logout = () => {
+    signOut(auth)
+      .then(() => {
+        // Sign-out successful.
+      })
+      .catch((error) => {
+        // An error happened.
+      });
+  };
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
-        if (user) {
-            setUser(user);
-            getIdToken(user).then((idToken) => setToken(idToken));
-        } else {
-            setUser({});
-        }
+      if (user) {
+        setUser(user);
+        getIdToken(user).then((idToken) => setToken(idToken));
+      } else {
+        setUser({});
+      }
     });
-}, []);
+  }, []);
 
-  return { loginWithGoogle,logout,user,setUser,token };
+  return { loginWithGoogle, logout, user, setUser, token };
 }
 
 export default useFirebase;

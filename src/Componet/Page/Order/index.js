@@ -24,6 +24,7 @@ import { Add, RemoveRedEye, Save } from "@mui/icons-material";
 import AddQuotation from "./AddQuotation/AddQuotation";
 import QuotationList from "./QuotationList";
 import ViewPdf from "../AddChallan/ViewPdf";
+import { validateOrder } from "./helpers";
 
 const initialData = {
   serialNo: 1,
@@ -119,9 +120,13 @@ function Quotation() {
 
   const [openAddQuotation, setOpenAddQuotation] = useState("");
 
-  // const [openConfirm, setOpenConfirm] = useState(false);
-
   const [open, setOpen] = useState(false);
+
+  const onSubmitbillHandler = () => {
+    const validate = validateOrder(quotation);
+
+    console.log({ validate });
+  };
 
   const addQuotaionHandler = (item) => {
     setQuotation((prev) => ({
@@ -285,7 +290,7 @@ function Quotation() {
           color="primary"
           startIcon={<Save />}
           onClick={() => {
-            // onSubmitbillHandler();
+            onSubmitbillHandler();
           }}
         >
           SAVE

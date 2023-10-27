@@ -19,7 +19,6 @@ function QuotationList({ quotation, setQuotation, isViewForTable = false }) {
   const [selectedQuotation, setSelectedQuotation] = useState({});
   const [selectedIndex, setSelectedIndex] = useState(null);
 
-  console.log({ quotation });
 
   const deleteChallanHandler = (index) => {
     const newQuotation = deleteDataByKey(quotation?.qutations, "index", index);

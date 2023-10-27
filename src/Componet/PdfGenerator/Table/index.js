@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "@react-pdf/renderer";
+import { StyleSheet, View } from "@react-pdf/renderer";
 
 import { TableForBill } from "./TableForBill";
 import { TableForChallan } from "./TableForChallan";

@@ -6,13 +6,13 @@ export default function Tab(theme) {
     styleOverrides: {
       root: {
         color: theme.palette.text.primary,
-        fontFamily: 'Inter',
-        borderBottom: '2px solid #EEEEEE',
-        padding: '15px',
-        fontWeight: '600',
-        fontSize: '15px',
-        lineHeight: '20px',
-        opacity: '1',
+        fontFamily: "Inter",
+        borderBottom: "2px solid #EEEEEE",
+        padding: "15px",
+        fontWeight: "600",
+        fontSize: "15px",
+        lineHeight: "20px",
+        opacity: "1",
       },
     },
   };

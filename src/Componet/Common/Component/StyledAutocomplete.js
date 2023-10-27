@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-/* eslint-disable max-len */
+
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import SearchIcon from "@mui/icons-material/Search";
 import {
@@ -21,10 +21,10 @@ const StyledSelect = styled(Autocomplete)(({ theme }) => ({
   },
 
   "& .MuiInputBase-root": {
-    background: theme.palette.background.secondary,
-    borderRadius: "40px",
-    padding: "12px 60px 12px 8px !important",
-    cursor: "pointer",
+    "background": theme.palette.background.secondary,
+    "borderRadius": "40px",
+    "padding": "12px 60px 12px 8px !important",
+    "cursor": "pointer",
 
     "& .MuiInputAdornment-positionStart": {
       width: "0px",
@@ -59,9 +59,9 @@ const StyledSelect = styled(Autocomplete)(({ theme }) => ({
   },
 
   "& .custom-clear-button": {
-    visibility: "hidden",
-    opacity: "0",
-    pointerEvents: "none",
+    "visibility": "hidden",
+    "opacity": "0",
+    "pointerEvents": "none",
 
     "& .MuiSvgIcon-root": {
       width: "19px",
@@ -90,11 +90,11 @@ const StyledSelect = styled(Autocomplete)(({ theme }) => ({
 
   /* focus styles */
   "&:has(.MuiInputBase-input:focus)": {
-    borderRadius: "25px",
-    width: "475px",
-    position: "absolute",
-    zIndex: "99",
-    top: "8px",
+    "borderRadius": "25px",
+    "width": "475px",
+    "position": "absolute",
+    "zIndex": "99",
+    "top": "8px",
 
     "& .MuiFormControl-root": {
       "& .MuiFormLabel-root": {
@@ -104,10 +104,10 @@ const StyledSelect = styled(Autocomplete)(({ theme }) => ({
   },
 
   "& .MuiInputBase-root:has(.MuiInputBase-input:focus)": {
-    padding: "13px 16px!important",
-    paddingRight: "70px!important",
-    position: "relative",
-    borderRadius: "40px 40px 0 0",
+    "padding": "13px 16px!important",
+    "paddingRight": "70px!important",
+    "position": "relative",
+    "borderRadius": "40px 40px 0 0",
 
     "& .MuiInputAdornment-positionStart": {
       visibility: "visible",
@@ -169,9 +169,9 @@ export default function StyledAutocomplete({
         <Paper
           sx={{
             "& .MuiAutocomplete-listbox": {
-              background: theme.palette.background.secondary,
-              borderRadius: "0px 0px 25px 25px",
-              padding: 0,
+              "background": theme.palette.background.secondary,
+              "borderRadius": "0px 0px 25px 25px",
+              "padding": 0,
               maxHeight,
 
               '& .MuiAutocomplete-option[aria-selected="true"]': {
@@ -210,18 +210,18 @@ export default function StyledAutocomplete({
               pointerEvents: props.readOnly ? "none" : "initial",
             },
           }}
-          variant="outlined"
+          variant='outlined'
           placeholder={placeholder}
           label={label}
           InputProps={{
             ...params.InputProps,
             startAdornment: (
-              <InputAdornment position="start">
+              <InputAdornment position='start'>
                 <SearchIcon />
               </InputAdornment>
             ),
             endAdornment: (
-              <InputAdornment position="end">
+              <InputAdornment position='end'>
                 {params.InputProps.endAdornment}
                 {/* {!params.inputProps.value && (
                   <IconButton

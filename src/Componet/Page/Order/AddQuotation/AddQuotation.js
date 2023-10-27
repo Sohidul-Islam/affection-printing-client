@@ -1,20 +1,22 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-unsafe-optional-chaining */
+import { Add } from "@mui/icons-material";
+import { Box, Button, Stack, Typography, useTheme } from "@mui/material";
 import React, { useState } from "react";
 import SideBarContainer from "../../../Common/SidebarContainer";
-import { Box, Button, Stack, Typography, useTheme } from "@mui/material";
-import { Add } from "@mui/icons-material";
 
-import TopicsContainer from "./TopicsContainer";
 import StyledInputForm from "../../../Common/Shared/StyledInputForm";
 import PriceListContainer from "./PriceListContainer";
+import TopicsContainer from "./TopicsContainer";
+import { validatePrice, validatePriceList, validateTopics } from "./helpers";
+import { successMsg } from "../../../Shared/SuccessMsg";
 
 const getInitialDataForQuotation = (data, type) => {
   const initialQuotation = {
     id: 1,
     title: "",
     topics: [],
-    quantity: "",
-    unitPrice: "",
-    totalPrice: "",
+    priceList: [],
   };
 
   const initialPriceList = [
@@ -45,7 +47,7 @@ const getInitialDataForQuotation = (data, type) => {
   ];
 
   if (type === "quotation") {
-    return data ? data : initialQuotation;
+    return data || initialQuotation;
   }
 
   if (type === "topics") {
@@ -71,19 +73,30 @@ function AddQuotation({ onClose, quotation, addQuotaionHandler }) {
   );
 
   const onSubmitQuotation = () => {
-    setNewQuotation((prev) => {
-      const updatedQuotation = {
-        ...prev,
-        topics: [...topics],
-        priceList: [...priceList],
-      };
+    const validateTopicsList = validateTopics(topics);
+    const validatePriceList = validatePrice(priceList);
 
-      console.log({ updatedQuotation });
+    console.log({ validateTopicsList, validatePriceList });
 
-      addQuotaionHandler(updatedQuotation);
-      onClose();
-      return updatedQuotation;
-    });
+    if (!newQuotation?.title) {
+      successMsg("Please Write quotation Title");
+      return;
+    }
+
+    if (validatePriceList && validateTopicsList && newQuotation?.title)
+      setNewQuotation((prev) => {
+        const updatedQuotation = {
+          ...prev,
+          topics: [...topics],
+          priceList: [...priceList],
+        };
+
+        console.log({ updatedQuotation });
+
+        addQuotaionHandler(updatedQuotation);
+        onClose();
+        return updatedQuotation;
+      });
   };
 
   // set topics here by index
@@ -113,12 +126,12 @@ function AddQuotation({ onClose, quotation, addQuotaionHandler }) {
         console.log(prev[isExist][name]);
         prev[isExist][name] = value;
         if (name === "quantity") {
-          prev[isExist]["totalPrice"] =
-            Number(value) * Number(prev[isExist]["unitPrice"]);
+          prev[isExist].totalPrice =
+            Number(value) * Number(prev[isExist].unitPrice);
         }
         if (name === "unitPrice") {
-          prev[isExist]["totalPrice"] =
-            Number(value) * Number(prev[isExist]["quantity"]);
+          prev[isExist].totalPrice =
+            Number(value) * Number(prev[isExist].quantity);
         }
       }
 
@@ -228,8 +241,9 @@ function AddQuotation({ onClose, quotation, addQuotaionHandler }) {
         {priceList?.length > 0 && (
           <Typography variant="h6">Price List</Typography>
         )}
-        {priceList?.map((price) => (
+        {priceList?.map((price, i) => (
           <PriceListContainer
+            key={i}
             price={price}
             onChangePriceHandler={onChangePriceHandler}
             onDelete={onDeletePrice}
