@@ -4,7 +4,6 @@ import StyledTable from "../../../Common/Component/StyledTable";
 
 import {
   Box,
-  CircularProgress,
   IconButton,
   Modal,
   Stack,
@@ -12,15 +11,11 @@ import {
   useTheme,
 } from "@mui/material";
 
-import { Delete, Download, RemoveRedEye } from "@mui/icons-material";
+import { Delete, RemoveRedEye } from "@mui/icons-material";
 
 import moment from "moment";
 
 import ViewPdf from "../../AddChallan/ViewPdf";
-
-import { PDFDownloadLink } from "@react-pdf/renderer";
-
-import { MyDocument } from "../../../PdfGenerator";
 
 import * as API_URL from "../../../../network/api";
 
@@ -35,7 +30,8 @@ import { successMsg } from "../../../Shared/SuccessMsg";
 import { useNavigate } from "react-router-dom";
 
 import StyledPagination from "../../../Common/Component/Pagination";
-import { getAddedDuesBillNO } from "./helpers";
+
+import { getAddedDuesBillNO, getDescription } from "./helpers";
 
 function Table({ data = [], type, totalPages, queryParams, setQueryParams }) {
   const theme = useTheme();
@@ -47,6 +43,7 @@ function Table({ data = [], type, totalPages, queryParams, setQueryParams }) {
   const [selectedData, setSelectedData] = useState({});
 
   const [openConfirm, setOpenConfirm] = useState(false);
+
   const [showindividual, setShowIndividual] = useState(false);
 
   const queryClient = useQueryClient();
@@ -133,12 +130,7 @@ function Table({ data = [], type, totalPages, queryParams, setQueryParams }) {
       type: ["challan", "bill", "quotation"],
       id: 3,
       headerName: "Description",
-      field:
-        type === "challan"
-          ? "challans"
-          : type === "bill"
-          ? "bills"
-          : "quotations",
+      field: getDescription(type, undefined).field,
       flex: 1,
       minWidth: 120,
       sortable: false,
@@ -153,7 +145,9 @@ function Table({ data = [], type, totalPages, queryParams, setQueryParams }) {
             WebkitBoxOrient: "vertical",
             WebkitLineClamp: 1,
           }}
-        >{`${value?.length > 0 ? value[0]?.desc : "_"}`}</Typography>
+        >
+          {getDescription(type, value).description}
+        </Typography>
       ),
     },
     {
@@ -161,6 +155,85 @@ function Table({ data = [], type, totalPages, queryParams, setQueryParams }) {
       id: 3,
       headerName: "Due",
       field: "due",
+      flex: 1.5,
+      minWidth: 120,
+      sortable: false,
+      renderCell: ({ value }) => (
+        <Typography
+          variant="h6"
+          sx={{
+            textOverflow: "ellipsis",
+            maxWidth: "300px",
+            display: "-webkit-box",
+            overflow: "hidden",
+            WebkitBoxOrient: "vertical",
+            WebkitLineClamp: 1,
+          }}
+        >
+          {value}
+        </Typography>
+      ),
+    },
+    {
+      type: ["bill"],
+      id: 3,
+      headerName: "Total paid",
+      field: "paid",
+      flex: 1.5,
+      minWidth: 120,
+      sortable: false,
+      renderCell: ({ row }) => {
+        console.log({ row });
+        return (
+          <Stack gap={1}>
+            <Typography
+              variant="body"
+              sx={{
+                textOverflow: "ellipsis",
+                maxWidth: "300px",
+                display: "-webkit-box",
+                overflow: "hidden",
+                WebkitBoxOrient: "vertical",
+                WebkitLineClamp: 1,
+              }}
+            >
+              Total: {row?.advance + row?.payment}
+            </Typography>
+            <Typography
+              variant="body3"
+              sx={{
+                textOverflow: "ellipsis",
+                maxWidth: "300px",
+                display: "-webkit-box",
+                overflow: "hidden",
+                WebkitBoxOrient: "vertical",
+                WebkitLineClamp: 1,
+              }}
+            >
+              Advance: {row?.advance}
+            </Typography>
+            <Typography
+              variant="body3"
+              sx={{
+                textOverflow: "ellipsis",
+                maxWidth: "300px",
+                display: "-webkit-box",
+                overflow: "hidden",
+                WebkitBoxOrient: "vertical",
+                WebkitLineClamp: 1,
+              }}
+            >
+              Payment: {row?.payment}
+            </Typography>
+          </Stack>
+        );
+      },
+    },
+    {
+      type: ["bill"],
+      id: 3,
+      headerName: "Total Amount",
+      field: "totalAmount",
       flex: 1.5,
       minWidth: 120,
       sortable: false,

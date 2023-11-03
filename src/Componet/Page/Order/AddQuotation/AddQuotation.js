@@ -76,8 +76,6 @@ function AddQuotation({ onClose, quotation, addQuotaionHandler }) {
     const validateTopicsList = validateTopics(topics);
     const validatePriceList = validatePrice(priceList);
 
-    console.log({ validateTopicsList, validatePriceList });
-
     if (!newQuotation?.title) {
       successMsg("Please Write quotation Title");
       return;
@@ -90,8 +88,6 @@ function AddQuotation({ onClose, quotation, addQuotaionHandler }) {
           topics: [...topics],
           priceList: [...priceList],
         };
-
-        console.log({ updatedQuotation });
 
         addQuotaionHandler(updatedQuotation);
         onClose();
@@ -107,7 +103,6 @@ function AddQuotation({ onClose, quotation, addQuotaionHandler }) {
       const isExist = prev?.findIndex((item) => item?.id === topic?.id);
 
       if (isExist > -1) {
-        console.log(prev[isExist][name]);
         prev[isExist][name] = value;
       }
 
@@ -123,7 +118,6 @@ function AddQuotation({ onClose, quotation, addQuotaionHandler }) {
       const isExist = prev?.findIndex((item) => item?.id === topic?.id);
 
       if (isExist > -1) {
-        console.log(prev[isExist][name]);
         prev[isExist][name] = value;
         if (name === "quantity") {
           prev[isExist].totalPrice =

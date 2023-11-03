@@ -19,18 +19,16 @@ function QuotationList({ quotation, setQuotation, isViewForTable = false }) {
   const [selectedQuotation, setSelectedQuotation] = useState({});
   const [selectedIndex, setSelectedIndex] = useState(null);
 
-
   const deleteChallanHandler = (index) => {
-    const newQuotation = deleteDataByKey(quotation?.qutations, "index", index);
+    const newQuotation = deleteDataByKey(quotation?.quotations, "index", index);
 
-    setQuotation((prev) => ({ ...prev, qutations: newQuotation }));
+    setQuotation((prev) => ({ ...prev, quotations: newQuotation }));
   };
 
   const editHandler = (item) => {
     {
       setQuotation((prev) => {
-        prev["qutations"][selectedIndex] = item;
-
+        prev["quotations"][selectedIndex] = item;
         return prev;
       });
     }
@@ -39,7 +37,7 @@ function QuotationList({ quotation, setQuotation, isViewForTable = false }) {
   const theme = useTheme();
   return (
     <Box>
-      {quotation?.qutations?.map((quota, i) => (
+      {quotation?.quotations?.map((quota, i) => (
         <Box
           key={i}
           marginBottom={2}

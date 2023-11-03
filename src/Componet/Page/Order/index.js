@@ -1,9 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import moment from "moment";
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import * as API_URL from "../../../network/api";
-import { useMutation } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import AXIOS from "../../../network/axios";
 import {
   Box,
@@ -25,90 +25,14 @@ import AddQuotation from "./AddQuotation/AddQuotation";
 import QuotationList from "./QuotationList";
 import ViewPdf from "../AddChallan/ViewPdf";
 import { validateOrder } from "./helpers";
+import { successMsg } from "../../Shared/SuccessMsg";
 
 const initialData = {
   serialNo: 1,
   date: moment(new Date()).format("DD/MM/YYYY"),
   user: null,
   subject: "",
-  qutations: [
-    {
-      id: 1,
-      title: "Test",
-      topics: [
-        {
-          id: 1,
-          title: "page",
-          desc: "dsfasdf",
-        },
-        {
-          id: 2,
-          title: "Size",
-          desc: "asdfasdf",
-        },
-        {
-          id: 3,
-          title: "Packet",
-          desc: "asdfasdf",
-        },
-      ],
-      quantity: "",
-      unitPrice: "",
-      totalPrice: "",
-      priceList: [
-        {
-          id: 1,
-          quantity: "121",
-          unitPrice: "43",
-          totalPrice: 5203,
-        },
-        {
-          id: 2,
-          quantity: "45",
-          unitPrice: "212",
-          totalPrice: 9540,
-        },
-      ],
-    },
-    {
-      id: 2,
-      title: "A4 size paper",
-      topics: [
-        {
-          id: 1,
-          title: "page",
-          desc: "Adlkasdj fals;djfals;djkfal;sdjkflwkejfopasijfasewfasdf asdfkasjdfl; jkasdfjwoefjasldfjasl;djfkasl;d",
-        },
-        {
-          id: 2,
-          title: "Size",
-          desc: "asdfasdf",
-        },
-        {
-          id: 3,
-          title: "Packet",
-          desc: "asdfasdf",
-        },
-      ],
-      quantity: "",
-      unitPrice: "",
-      totalPrice: "",
-      priceList: [
-        {
-          id: 1,
-          quantity: "121",
-          unitPrice: "43",
-          totalPrice: 5203,
-        },
-        {
-          id: 2,
-          quantity: "45",
-          unitPrice: "212",
-          totalPrice: 9540,
-        },
-      ],
-    },
-  ],
+  quotations: [],
 };
 
 function Quotation() {
@@ -121,17 +45,22 @@ function Quotation() {
   const [openAddQuotation, setOpenAddQuotation] = useState("");
 
   const [open, setOpen] = useState(false);
+  const params = useParams();
 
-  const onSubmitbillHandler = () => {
-    const validate = validateOrder(quotation);
+  const getQuotationAPI = params?.id
+    ? `${API_URL.QUOTATION}/${params.id}`
+    : null;
 
-    console.log({ validate });
-  };
+  useEffect(() => {
+    if (!params?.id) {
+      setQuotation({ ...initialData });
+    }
+  }, [params?.id]);
 
   const addQuotaionHandler = (item) => {
     setQuotation((prev) => ({
       ...prev,
-      qutations: [...prev?.qutations, item],
+      quotations: [...prev?.quotations, item],
     }));
   };
 
@@ -145,7 +74,6 @@ function Quotation() {
     });
   };
 
-  const params = useParams();
   // get users query
   const usersQuery = useMutation(
     () =>
@@ -160,10 +88,6 @@ function Quotation() {
       onSuccess: (data) => {
         if (data?.status) {
           setSearchedUsersOptions((prev) => {
-            console.log(
-              "userData",
-              data?.users?.length > 0 ? data?.users : prev
-            );
             return data?.users?.length > 0 ? data?.users : prev;
           });
         }
@@ -179,13 +103,84 @@ function Quotation() {
 
     []
   );
-  // const getChallanAPI = params?.id ? `${API_URL.CHALLAN}/${params.id}` : null;
+
+  const getQuotationByIdQuery = useQuery(
+    [getQuotationAPI, params?.id],
+    () => AXIOS.get(getQuotationAPI),
+    {
+      onSuccess: (data) => {
+        if (data?.status) {
+          successMsg(data?.message, "success");
+
+          setQuotation({
+            ...data?.quotation,
+            date: moment(data?.quotation?.date).format("DD/MM/YYYY"),
+          });
+        }
+      },
+      onError: () => {
+        setQuotation({ ...initialData });
+      },
+      enabled: !!params?.id,
+    }
+  );
+
+  // add challan query
+  const addQuotationQuery = useMutation(
+    (data) => AXIOS.post(API_URL.QUOTATION, data),
+    {
+      onSuccess: (data) => {
+        if (data?.status) {
+          successMsg(data?.message, "success");
+
+          setQuotation((prev) => ({
+            ...prev,
+            ...data?.quotation,
+            date: moment(data?.quotation?.date).format("DD/MM/YYYY"),
+          }));
+        } else {
+          successMsg(data?.message);
+        }
+      },
+    }
+  );
+
+  const updateQuotationQuery = useMutation(
+    (data) => AXIOS.put(`${API_URL.QUOTATION}/${quotation?._id}`, data),
+    {
+      onSuccess: (data) => {
+        if (data?.status) {
+          successMsg(data?.message, "success");
+
+          setQuotation((prev) => ({
+            ...prev,
+            ...data?.quotation,
+            date: moment(data?.quotation?.date).format("DD/MM/YYYY"),
+          }));
+        } else {
+          successMsg(data?.message);
+        }
+      },
+    }
+  );
 
   // filtering user data
   const filterOptions = createFilterOptions({
     stringify: ({ name, email, _id, vatNo, phone }) =>
       `${name} ${email} ${_id} ${vatNo} ${phone}`,
   });
+
+  const onSubmitbillHandler = () => {
+    const validate = validateOrder(quotation);
+
+    if (validate?.status) {
+      if (quotation?._id) {
+        updateQuotationQuery.mutate(validate?.data);
+        return;
+      }
+      addQuotationQuery.mutate(validate?.data);
+    }
+  };
 
   return (
     <Box>
@@ -288,6 +283,9 @@ function Quotation() {
         <Button
           variant="contained"
           color="primary"
+          disabled={
+            addQuotationQuery?.isLoading || updateQuotationQuery?.isLoading
+          }
           startIcon={<Save />}
           onClick={() => {
             onSubmitbillHandler();
@@ -295,17 +293,22 @@ function Quotation() {
         >
           SAVE
         </Button>
-        <Button
-          variant="contained"
-          color="primary"
-          startIcon={<RemoveRedEye />}
-          // disabled={bill?.alreadyAdded}
-          onClick={() => {
-            setOpen(true);
-          }}
-        >
-          View PDF
-        </Button>
+
+        {quotation?._id && (
+          <Button
+            variant="contained"
+            color="primary"
+            startIcon={<RemoveRedEye />}
+            disabled={
+              addQuotationQuery?.isLoading || updateQuotationQuery?.isLoading
+            }
+            onClick={() => {
+              setOpen(true);
+            }}
+          >
+            View PDF
+          </Button>
+        )}
       </Stack>
       <Drawer open={openAddQuotation} anchor="right">
         <AddQuotation

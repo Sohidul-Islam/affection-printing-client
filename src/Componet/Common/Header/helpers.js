@@ -1,6 +1,7 @@
 import {
   AttachMoney,
   Dashboard,
+  Note,
   PersonAddAlt,
   Receipt,
   ShoppingBag,
@@ -23,9 +24,9 @@ export const menuList = [
     path: "/add-challan",
   },
   {
-    label: "Order",
-    icon: <ShoppingBag />,
-    path: "/order",
+    label: "Quotation",
+    icon: <Note />,
+    path: "/Quotation",
   },
   {
     label: "Customer",

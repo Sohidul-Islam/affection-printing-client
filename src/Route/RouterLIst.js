@@ -30,7 +30,11 @@ export const routerList = [
   },
 
   {
-    path: "/order",
+    path: "/quotation",
+    component: Order,
+  },
+  {
+    path: "/quotation/:id",
     component: Order,
   },
   {

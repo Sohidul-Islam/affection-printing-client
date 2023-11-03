@@ -19,7 +19,7 @@ export const BILL = `${API_URL}api/bill`;
 export const TRANSACTION = `${API_URL}api/transaction`;
 
 // Quotation @get - retrieve data, @post - create data @put - update data @delete - delete data (CRUD operations)
-export const QUOTATION = `${API_URL}api/bill`;
+export const QUOTATION = `${API_URL}api/quotation`;
 
 // Quotation @get - retrieve data where we get dues off all
 export const DUES = `${API_URL}api/bill/dues`;

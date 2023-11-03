@@ -7,7 +7,7 @@ export const generatedTableData = (data, type) => {
 
   if (type === "transaction") return data?.transactions || [];
 
-  if (type === "quotation") return [];
+  if (type === "quotation") return data?.quotations || [];
 
   return [];
 };
@@ -31,4 +31,46 @@ export const getAddedDuesBillNO = (data) => {
   }
 
   return 0;
+};
+
+const getDescriptionValue = (value) => {
+  if (!value) {
+    return "";
+  }
+
+  if (typeof value === "string") {
+    return value;
+  }
+
+  if (typeof value === "object") {
+    if (value?.length) {
+      return value[0]?.desc;
+    }
+
+    return JSON.stringify(value);
+  }
+  return value;
+};
+
+export const getDescription = (type, value = undefined) => {
+  const output = {
+    description: "",
+    field: "",
+  };
+
+  if (type === "challan") {
+    output.description = getDescriptionValue(value);
+    output.field = "challans";
+  }
+
+  if (type === "bill") {
+    output.description = getDescriptionValue(value);
+    output.field = "bills";
+  }
+  if (type === "quotation") {
+    output.description = getDescriptionValue(value);
+    output.field = "subject";
+  }
+
+  return output;
 };

@@ -131,7 +131,7 @@ export const TableForQuotation = ({ data }) => {
         fixed
       ></View>
 
-      {data?.qutations.map((quotation, index) => {
+      {data?.quotations?.map((quotation, index) => {
         return (
           <RowForQuotation quotation={quotation} index={index} key={index} />
         );

@@ -75,6 +75,7 @@ function UserActivityTabs() {
         options={userActivityTabList}
         onChange={(value) => {
           setCurrentTab(value);
+          setQueryParams((prev) => ({ ...prev, page: 1 }));
         }}
         value={currentTab}
       />

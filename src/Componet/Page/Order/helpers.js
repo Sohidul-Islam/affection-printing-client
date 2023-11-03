@@ -16,10 +16,12 @@ export const validateOrder = (quotation) => {
     successMsg("Please add date");
     return status;
   }
-  if (!quotation?.qutations?.length) {
+  if (!quotation?.quotations?.length) {
     successMsg("Please add atleast one quotation");
     return status;
   }
+
+  quotation.user = quotation?.user?._id;
 
   return {
     status: true,
