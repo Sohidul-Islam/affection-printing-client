@@ -25,3 +25,4 @@ export const QUOTATION = `${API_URL}api/quotation`;
 export const DUES = `${API_URL}api/bill/dues`;
 
 export const MAKE_PAYMENT = `${API_URL}api/transaction`;
+export const GET_DASHBOARD = `${API_URL}api/dashboard`;
