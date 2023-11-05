@@ -470,7 +470,7 @@ function Table({
     const col = {
       type: ["challan", "bill", "quotation", "transaction"],
       id: 3,
-      headerName: "User",
+      headerName: "Customers",
       field: "user",
       flex: 1,
       minWidth: 120,
@@ -492,7 +492,7 @@ function Table({
       ),
     };
 
-    columns.splice(2, 0, col);
+    columns.splice(0, 0, col);
   }
 
   return (
