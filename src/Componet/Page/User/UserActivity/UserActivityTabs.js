@@ -31,7 +31,11 @@ const userActivityTabList = [
   },
 ];
 
-function UserActivityTabs() {
+function UserActivityTabs({
+  showPayment = true,
+  queryParamsProps = {},
+  showFor = "",
+}) {
   const [currentTab, setCurrentTab] = useState("challan");
 
   const params = useParams();
@@ -43,6 +47,7 @@ function UserActivityTabs() {
   const [queryParams, setQueryParams] = useState({
     ...initialQueryParam,
     userId: params?.id,
+    ...(queryParamsProps || {}),
   });
 
   const api =
@@ -84,6 +89,11 @@ function UserActivityTabs() {
         <SearchContainer
           setQueryParams={setQueryParams}
           addButtonLabel="Payment"
+          show={{
+            search: true,
+            date: true,
+            addBtn: showPayment,
+          }}
           onAdd={() => {
             setOpen(true);
           }}
@@ -97,6 +107,7 @@ function UserActivityTabs() {
             setQueryParams={setQueryParams}
             type={currentTab}
             data={generatedTableData(getDataForTable?.data, currentTab)}
+            showFor={showFor}
           />
         )}
       </Stack>

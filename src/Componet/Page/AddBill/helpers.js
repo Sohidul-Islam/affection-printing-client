@@ -3,14 +3,22 @@ import { successMsg } from "../../Shared/SuccessMsg";
 import { isNumber } from "lodash";
 
 export const isVerifiedBill = (data) => {
+  console.log({ data });
+
   if (!data?.quantity) {
     successMsg("Please provide a quantity");
     return false;
   }
-  if (!data?.price) {
-    successMsg("Please provide a price");
+  // data.price data.amount
+  if (!Number(data?.price) && !Number(data?.amount)) {
+    successMsg("Please provide a unit price or total amount");
     return false;
   }
+
+  // if (!data?.price) {
+  //   successMsg("Please provide a unit price");
+  //   return false;
+  // }
 
   if (!data?.desc) {
     successMsg("Please provide a description");
@@ -81,7 +89,7 @@ export const getAmountInWord = (value) => {
 
 export const getTotalAmount = (data) => {
   const totalAmount = data.reduce((accumulator, item) => {
-    return accumulator + item.amount;
+    return Number(accumulator) + Number(item.amount);
   }, 0);
 
   return totalAmount;

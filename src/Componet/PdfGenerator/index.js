@@ -123,7 +123,7 @@ export const MyDocument = ({ data, type }) => {
             />
           </View>
           <View style={styles.pageFooterContainer}>
-            <PageFooter />
+            <PageFooter type={type} />
           </View>
         </View>
       </Page>

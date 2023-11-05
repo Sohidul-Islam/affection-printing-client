@@ -36,8 +36,11 @@ function BillList({ bills = [], setBills, isReadOnly }) {
 
   const editBillHandler = (value) => {
     const newBills = editDataByKey(bills, selectedIndex, value);
-    newBills[selectedIndex].amount =
-      newBills[selectedIndex]?.price * newBills[selectedIndex]?.quantity;
+    // newBills[selectedIndex].amount =
+    //   newBills[selectedIndex]?.price > 0
+    //     ? newBills[selectedIndex]?.price * newBills[selectedIndex]?.quantity
+    //     : newBills[selectedIndex].amount;
+
     const totalAmount = getTotalAmount(newBills);
 
     setBills((prev) => {

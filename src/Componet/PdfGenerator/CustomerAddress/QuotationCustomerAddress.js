@@ -13,7 +13,7 @@ function QuotationCustomerAddress({ data }) {
           <Text style={{ fontSize: 10 }}>{data?.user?.address}</Text>
         </View>
         <View>
-          <Text style={{ fontSize: 10 }}>{data?.date}</Text>
+          <Text style={{ fontSize: 10 }}>Date: {data?.date}</Text>
         </View>
       </View>
 

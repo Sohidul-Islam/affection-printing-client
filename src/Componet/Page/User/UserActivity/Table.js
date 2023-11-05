@@ -33,7 +33,14 @@ import StyledPagination from "../../../Common/Component/Pagination";
 
 import { getAddedDuesBillNO, getDescription } from "./helpers";
 
-function Table({ data = [], type, totalPages, queryParams, setQueryParams }) {
+function Table({
+  data = [],
+  type,
+  totalPages,
+  queryParams,
+  setQueryParams,
+  showFor = "",
+}) {
   const theme = useTheme();
 
   const [open, setOpen] = useState(false);
@@ -358,6 +365,9 @@ function Table({ data = [], type, totalPages, queryParams, setQueryParams }) {
       flex: 1.5,
       minWidth: 120,
       sortable: false,
+      headerAlign: "right",
+      align: "right",
+
       renderCell: ({ value }) => (
         <Stack>
           <Typography
@@ -455,6 +465,35 @@ function Table({ data = [], type, totalPages, queryParams, setQueryParams }) {
       ),
     },
   ];
+
+  if (showFor === "dashboard") {
+    const col = {
+      type: ["challan", "bill", "quotation", "transaction"],
+      id: 3,
+      headerName: "User",
+      field: "user",
+      flex: 1,
+      minWidth: 120,
+      sortable: false,
+      renderCell: ({ value }) => (
+        <Typography
+          variant="h6"
+          sx={{
+            textOverflow: "ellipsis",
+            maxWidth: "300px",
+            display: "-webkit-box",
+            overflow: "hidden",
+            WebkitBoxOrient: "vertical",
+            WebkitLineClamp: 1,
+          }}
+        >
+          {value?.name}
+        </Typography>
+      ),
+    };
+
+    columns.splice(2, 0, col);
+  }
 
   return (
     <Box

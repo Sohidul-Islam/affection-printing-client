@@ -31,7 +31,7 @@ const getInitialDataForQuotation = (data, type) => {
   const initialTopics = [
     {
       id: 1,
-      title: "page",
+      title: "Page",
       desc: "",
     },
     {
@@ -120,12 +120,14 @@ function AddQuotation({ onClose, quotation, addQuotaionHandler }) {
       if (isExist > -1) {
         prev[isExist][name] = value;
         if (name === "quantity") {
-          prev[isExist].totalPrice =
-            Number(value) * Number(prev[isExist].unitPrice);
+          prev[isExist].totalPrice = Number(
+            (Number(value) * Number(prev[isExist].unitPrice)).toFixed(2)
+          );
         }
         if (name === "unitPrice") {
-          prev[isExist].totalPrice =
-            Number(value) * Number(prev[isExist].quantity);
+          prev[isExist].totalPrice = Number(
+            (Number(value) * Number(prev[isExist].quantity)).toFixed(2)
+          );
         }
       }
 

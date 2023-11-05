@@ -28,6 +28,7 @@ function MakePayment({ onClose }) {
           queryClient.invalidateQueries(API_URL?.BILL);
           queryClient.invalidateQueries(API_URL?.TRANSACTION);
           queryClient.invalidateQueries(API_URL.GET_DASHBOARD);
+
           onClose();
         } else {
           successMsg(data?.message, "warn");

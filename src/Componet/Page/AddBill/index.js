@@ -104,11 +104,9 @@ function AddBills() {
 
   const addBillsHandler = (data) => {
     setBill((prev) => {
-      const amount = data?.price * data?.quantity;
-      const totalAmount = getTotalAmount([
-        ...prev.bills,
-        { ...data, amount: amount },
-      ]);
+      // const amount =
+      //   data?.price > 0 ? data?.price * data?.quantity : data?.amount;
+      const totalAmount = getTotalAmount([...prev.bills, { ...data }]);
 
       const due = calculateDue({ ...prev, totalAmount });
 
@@ -116,7 +114,7 @@ function AddBills() {
         ...prev,
         totalAmount: totalAmount,
         due,
-        bills: [...prev.bills, { ...data, amount: amount }],
+        bills: [...prev.bills, { ...data }],
       };
     });
   };

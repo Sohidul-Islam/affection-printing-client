@@ -33,6 +33,7 @@ const initialData = {
   user: null,
   subject: "",
   quotations: [],
+  note: "Including TAX",
 };
 
 function Quotation() {
@@ -65,7 +66,7 @@ function Quotation() {
   };
 
   // onChangeChallan
-  const onChangeChallan = (e) => {
+  const onChangeQuotation = (e) => {
     setQuotation((prev) => {
       return {
         ...prev,
@@ -248,7 +249,7 @@ function Quotation() {
           inputProps={{
             name: "date",
             value: quotation?.date,
-            onChange: onChangeChallan,
+            onChange: onChangeQuotation,
           }}
         />
         <StyledInputForm
@@ -260,7 +261,31 @@ function Quotation() {
           inputProps={{
             name: "subject",
             value: quotation?.subject,
-            onChange: onChangeChallan,
+            onChange: onChangeQuotation,
+          }}
+        />
+      </Stack>
+
+      <Stack>
+        <StyledInputForm
+          label={"Address"}
+          type="normal"
+          inputProps={{
+            name: "address",
+            value: quotation?.user?.address,
+            readOnly: true,
+          }}
+        />
+      </Stack>
+
+      <Stack>
+        <StyledInputForm
+          label={"Notes (Optional)"}
+          type="normal"
+          inputProps={{
+            name: "note",
+            value: quotation?.note,
+            onChange: onChangeQuotation,
           }}
         />
       </Stack>

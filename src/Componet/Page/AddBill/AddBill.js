@@ -15,6 +15,7 @@ const getInitialValue = (data) => {
     desc: "",
     price: 0,
     remark: "",
+    amount: "",
   };
 };
 
@@ -23,16 +24,24 @@ function AddBill({ onClose, addBillHandler, data = undefined }) {
 
   const onSubmitBill = () => {
     if (isVerifiedBill(newBill)) {
-      addBillHandler(newBill);
+      if (addBillHandler) addBillHandler(newBill);
       onClose();
     }
   };
 
   const onChangeChallan = (e) => {
-    setNewBill((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
+    setNewBill((prev) => {
+      if (e.target.name === "price") {
+        prev.amount = Number(
+          (Number(prev?.quantity || 0) * Number(e.target.value || 0)).toFixed(2)
+        );
+      }
+
+      return {
+        ...prev,
+        [e.target.name]: e.target.value,
+      };
+    });
   };
 
   return (
@@ -77,16 +86,17 @@ function AddBill({ onClose, addBillHandler, data = undefined }) {
           type="normal"
           inputProps={{
             name: "amount",
-            readOnly: true,
-            multiline: true,
-            maxRow: 4,
-            value: Number(newBill?.quantity * newBill?.price),
+            type: "number",
+            readOnly: Number(newBill?.price) > 0,
+            value: newBill?.amount,
             onChange: onChangeChallan,
           }}
         />
-        <Typography variant="body3" marginTop={-4}>
-          This Field Isn't Editable
-        </Typography>
+        {Number(newBill?.price) > 0 && (
+          <Typography variant="body3" marginTop={-4}>
+            This Field Isn't Editable
+          </Typography>
+        )}
       </Stack>
 
       <Box marginTop={5}>
