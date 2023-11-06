@@ -49,8 +49,8 @@ const styles = StyleSheet.create({
 });
 
 export const MyDocument = ({ data, type }) => {
-  //   console.log(data);
   const generatedData = getPdfData(data, type);
+  console.log({ generatedData });
 
   Font.register({
     family: "Poppins",

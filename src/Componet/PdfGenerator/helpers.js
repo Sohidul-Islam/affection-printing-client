@@ -127,7 +127,7 @@ export const getPdfData = (data, type) => {
   const format = "DD/MM/YYYY";
   const isValidDate = moment(data?.date).month();
   const convertedDate = !isNaN(isValidDate)
-    ? data?.date
+    ? moment(data?.date, format)
     : moment(dateString, format).toDate();
 
   if (type === "challan") {
@@ -139,6 +139,12 @@ export const getPdfData = (data, type) => {
   }
 
   if (type === "bill") return getBillData(data, convertedDate);
+
+  console.log({
+    convertedDate,
+    dateString,
+    formate: moment(convertedDate).format("DD MMMM, YYYY"),
+  });
 
   if (type === "quotation")
     return {

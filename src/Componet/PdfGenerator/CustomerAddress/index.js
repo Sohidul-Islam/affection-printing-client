@@ -44,8 +44,6 @@ export const CustomerStyle = StyleSheet.create({
 });
 
 export const CustomerInfo = ({ data, type = "Challan" }) => {
-  const { user, date, serialNo } = data;
-
   Font.register({
     family: "Poppins",
 

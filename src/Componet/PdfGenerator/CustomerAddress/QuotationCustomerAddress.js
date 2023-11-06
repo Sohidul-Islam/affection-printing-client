@@ -4,6 +4,7 @@ import React from "react";
 export const QuotationCustomerStyle = StyleSheet.create({});
 
 function QuotationCustomerAddress({ data }) {
+  console.log({ date: data?.date });
   return (
     <View style={{ paddingHorizontal: 20, marginTop: 10 }}>
       <View style={{ flexDirection: "row", justifyContent: "space-between" }}>

@@ -5,12 +5,13 @@ const pageFooterStyle = StyleSheet.create({
   container: {
     paddingHorizontal: 20,
     paddingTop: 20,
+    paddingBottom: 10,
     // position: "relative",
     position: "absolute",
     flexDirection: "column",
     bottom: -80,
     width: "100%",
-    height: 100,
+    height: 120,
     // backgroundColor: "red",
     overflow: "hidden",
   },
@@ -52,22 +53,17 @@ export const FooterForQuotation = () => {
   return (
     <View style={pageFooterStyle.container}>
       <View style={pageFooterStyle.content}>
-        <View>
+        <View
+          style={{
+            flexDirection: "column",
+            alignItems: "flex-start",
+          }}
+        >
           <Text style={pageFooterStyle.text}>Thanking You</Text>
-          <View
-            style={{
-              flexDirection: "column",
-              alignItems: "flex-start",
-            }}
-          >
-            <Image
-              src={signature}
-              style={{ width: 100, objectFit: "covered" }}
-            />
-            <Text style={pageFooterStyle.text}>
-              Affection Printing & Packaging
-            </Text>
-          </View>
+          <Image src={signature} style={{ width: 100, objectFit: "covered" }} />
+          <Text style={pageFooterStyle.text}>
+            Affection Printing & Packaging
+          </Text>
         </View>
       </View>
     </View>
