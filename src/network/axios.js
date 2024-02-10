@@ -65,8 +65,6 @@ AXIOS.interceptors.response.use(
       (error?.response?.status === 401 || error?.response?.status === 403) &&
       error?.response?.data === "Forbidden"
     ) {
-      removeAuthCookies();
-      successMsg("Unauthorized access");
       window.location.href("/login");
     }
 
