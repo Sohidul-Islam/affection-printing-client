@@ -52,6 +52,7 @@ AXIOS.interceptors.response.use(
     /**
      * Add logic for successful response
      */
+    console.log({ response });
 
     return response?.data || {};
   },
@@ -59,7 +60,11 @@ AXIOS.interceptors.response.use(
     /**
      * Add logic for any error from backend
      */
-    if (error?.code === "ERR_BAD_REQUEST") {
+
+    if (
+      (error?.response?.status === 401 || error?.response?.status === 403) &&
+      error?.response?.data === "Forbidden"
+    ) {
       removeAuthCookies();
       successMsg("Unauthorized access");
       window.location.href("/login");
