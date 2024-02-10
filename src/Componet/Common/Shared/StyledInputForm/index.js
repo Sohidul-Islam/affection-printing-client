@@ -1,10 +1,18 @@
-import { Box, Checkbox, Stack, Typography, useTheme } from "@mui/material";
-import React from "react";
+import {
+  Box,
+  Checkbox,
+  IconButton,
+  Stack,
+  Typography,
+  useTheme,
+} from "@mui/material";
+import React, { useState } from "react";
 import StyledInput from "../../Component/StyledInput";
 import StyledDatePicker from "../../Component/StyledDatePicker";
 import StyledAutocomplete from "../../Component/StyledAutocomplete";
 import StyledFileDropzone from "./StyledFileDropzone";
 import ImagePreview from "./ImagePreview";
+import { Visibility } from "@mui/icons-material";
 
 function StyledInputForm({
   label,
@@ -15,6 +23,8 @@ function StyledInputForm({
   ...props
 }) {
   const theme = useTheme();
+
+  const [passwordType, setPasswordType] = useState("password");
   return (
     <Box sx={{ ...containerSx }}>
       <Stack gap={1}>
@@ -36,6 +46,27 @@ function StyledInputForm({
             }}
             multiline={inputProps?.multiline}
           />
+        )}
+        {type === "password" && (
+          <Stack direction={"row"} alignItems={"center"}>
+            <StyledInput
+              {...props}
+              inputProps={{
+                ...(inputProps || {}),
+                type: passwordType,
+              }}
+            />
+            <IconButton
+              size="small"
+              onClick={() => {
+                setPasswordType((prev) =>
+                  prev === "password" ? "text" : "password"
+                );
+              }}
+            >
+              <Visibility />
+            </IconButton>
+          </Stack>
         )}
         {type === "date" && (
           <StyledDatePicker

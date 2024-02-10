@@ -16,6 +16,7 @@ import {
 } from "@mui/material";
 import PageTop from "../../Common/Component/PageTop";
 import {
+  AddNewGlobal,
   autoCompleteIsReadOnly,
   getBackButtonTitle,
 } from "../AddChallan/helpers";
@@ -105,6 +106,7 @@ function Quotation() {
     []
   );
 
+  // eslint-disable-next-line no-unused-vars
   const getQuotationByIdQuery = useQuery(
     [getQuotationAPI, params?.id],
     () => AXIOS.get(getQuotationAPI),
@@ -200,6 +202,13 @@ function Quotation() {
         }
         backTo={params?.id ? `/customer/${quotation?.user?._id}` : undefined}
       />
+
+      <AddNewGlobal
+        title={"Quotation"}
+        setState={setQuotation}
+        initial={initialData}
+      />
+
       <Stack
         gap={4}
         direction={{

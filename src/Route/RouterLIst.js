@@ -1,6 +1,7 @@
 import ErrorPage from "../Componet/Common/Component/ErrorPage";
 import AddBill from "../Componet/Page/AddBill";
 import ChallanPage from "../Componet/Page/AddChallan";
+import Admin from "../Componet/Page/Admin";
 import Customers from "../Componet/Page/Customers";
 
 import Dashboard from "../Componet/Page/Dashboard";
@@ -44,6 +45,10 @@ export const routerList = [
   {
     path: "/customer/:id",
     component: User,
+  },
+  {
+    path: "/admin",
+    component: Admin,
   },
   {
     path: "*",

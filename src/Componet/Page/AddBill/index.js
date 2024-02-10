@@ -32,6 +32,7 @@ import { successMsg } from "../../Shared/SuccessMsg";
 import * as API_URL from "../../../network/api";
 import ViewPdf from "./../AddChallan/ViewPdf";
 import {
+  AddNewGlobal,
   autoCompleteIsReadOnly,
   getBackButtonTitle,
 } from "../AddChallan/helpers";
@@ -40,7 +41,7 @@ import AddDues from "./Dues/AddDues";
 import ConfirmModal from "../../Common/Component/ConfirmModal";
 const initialData = {
   date: moment(new Date()).format("DD/MM/YYYY"),
-  user: {},
+  user: null,
   advance: 0,
   due: 0,
   dues: [],
@@ -277,7 +278,7 @@ function AddBills() {
         }
         backTo={params?.id ? `/customer/${bill?.user?._id}` : undefined}
       />
-
+      <AddNewGlobal title={"Bill"} setState={setBill} initial={initialData} />
       {/* user search here */}
       <Stack
         gap={4}

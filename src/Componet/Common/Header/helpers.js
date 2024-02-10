@@ -1,10 +1,11 @@
 import {
+  AdminPanelSettings,
   AttachMoney,
   Dashboard,
   Note,
   PersonAddAlt,
   Receipt,
-  ShoppingBag,
+  SupervisedUserCircleOutlined,
 } from "@mui/icons-material";
 
 export const menuList = [
@@ -32,5 +33,10 @@ export const menuList = [
     label: "Customer",
     icon: <PersonAddAlt />,
     path: "/customers",
+  },
+  {
+    label: "Admin",
+    icon: <AdminPanelSettings />,
+    path: "/admin",
   },
 ];

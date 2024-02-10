@@ -1,5 +1,8 @@
 import moment from "moment";
 import { successMsg } from "../../Shared/SuccessMsg";
+import { Button, Stack } from "@mui/material";
+import { Add, NewReleases, Newspaper } from "@mui/icons-material";
+import { set } from "lodash";
 
 export const isVerifiedChallan = (data) => {
   if (!data?.quantity) {
@@ -79,4 +82,22 @@ export const getPdfFileName = (data, type) => {
   )}.pdf`;
 
   return fileName;
+};
+
+export const AddNewGlobal = ({ title, initial, setState }) => {
+  const onClick = () => {
+    if (setState) setState((prev) => ({ ...initial, user: prev?.user }));
+  };
+  return (
+    <Stack justifyContent={"flex-end"} direction={"row"}>
+      <Button
+        startIcon={<Add />}
+        variant="contained"
+        size="small"
+        onClick={onClick}
+      >
+        Create New {title}
+      </Button>
+    </Stack>
+  );
 };

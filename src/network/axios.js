@@ -1,5 +1,11 @@
+import { useNavigate } from "react-router-dom";
+import {
+  getCookiesAsObject,
+  removeAuthCookies,
+} from "../Componet/Common/Helpers/helpers";
 import { API_URL } from "./api";
 import axios from "axios";
+import { successMsg } from "../Componet/Shared/SuccessMsg";
 
 const AXIOS = axios.create({
   baseURL: API_URL,
@@ -13,21 +19,20 @@ AXIOS.interceptors.request.use(
     /**
      * Add your request interceptor logic here: setting headers, authorization etc.
      */
+
     let accessToken = null;
 
-    // if (document.cookie.length > 0) {
-    //   const { access_token } = getCookiesAsObject();
-    //   accessToken = access_token || null;
-    // }
+    if (document.cookie.length > 0) {
+      const { access_token } = getCookiesAsObject();
+      accessToken = access_token || null;
+    }
 
     config.headers["Content-Type"] = "application/json";
     config.headers["Access-Control-Allow-Origin"] = "*";
 
-    // if (!config?.noAuth) {
-    //   if (accessToken) {
-    //     config.headers.Authorization = `Bearer ${accessToken}`;
-    //   }
-    // }
+    if (accessToken) {
+      config.headers.Authorization = `Bearer ${accessToken}`;
+    }
 
     return config;
   },
@@ -43,15 +48,23 @@ AXIOS.interceptors.request.use(
  * Interceptor for all responces
  */
 AXIOS.interceptors.response.use(
-  (response) =>
+  (response) => {
     /**
      * Add logic for successful response
      */
-    response?.data || {},
+
+    return response?.data || {};
+  },
   (error) => {
     /**
      * Add logic for any error from backend
      */
+    if (error?.code === "ERR_BAD_REQUEST") {
+      removeAuthCookies();
+      successMsg("Unauthorized access");
+      window.location.href("/login");
+    }
+
     console.log("api error:", error);
     return Promise.reject(error);
   }

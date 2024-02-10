@@ -1,7 +1,7 @@
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 
 export const successMsg = (msg, status) => {
-  if (status === 'success') {
+  if (status === "success") {
     return toast.success(msg, {
       position: toast.POSITION.TOP_RIGHT,
       autoClose: 3000,
@@ -11,7 +11,7 @@ export const successMsg = (msg, status) => {
       draggable: true,
       progress: undefined,
       bodyStyle: {
-        zIndex: '99999',
+        zIndex: "99999",
       },
     });
   }

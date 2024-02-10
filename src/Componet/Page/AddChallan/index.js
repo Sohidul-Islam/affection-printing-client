@@ -21,6 +21,7 @@ import { Add, RemoveRedEye, Save } from "@mui/icons-material";
 import AddChallan from "./AddChallan";
 import ChallanList from "./ChallanList";
 import {
+  AddNewGlobal,
   autoCompleteIsReadOnly,
   generatedDataForChallan,
   getBackButtonTitle,
@@ -32,7 +33,7 @@ import { useParams } from "react-router-dom";
 const initialData = {
   serialNo: 1,
   date: moment(new Date()).format("DD/MM/YYYY"),
-  user: {},
+  user: null,
   challans: [],
 };
 
@@ -203,6 +204,11 @@ function ChallanPage() {
         }
         backTo={params?.id ? `/customer/${challan?.user?._id}` : undefined}
       />
+      <AddNewGlobal
+        title={"Challan"}
+        setState={setChallan}
+        initial={initialData}
+      />
       <Stack
         gap={4}
         direction={{
@@ -222,7 +228,7 @@ function ChallanPage() {
             multiple: false,
             maxHeight: "110px",
             options: searchedUsersOptions,
-            value: challan?.user,
+            value: challan?.user || null,
             placeholder: "Choose user",
             noOptionsText: usersQuery?.isLoading ? "Loading..." : "No Users",
             filterOptions,

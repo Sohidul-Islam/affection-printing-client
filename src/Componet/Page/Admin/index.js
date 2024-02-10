@@ -1,33 +1,25 @@
-import { Box, Drawer, Grid, Stack, Typography } from "@mui/material";
 import React, { useState } from "react";
-import SearchContainer from "./SearchContainer";
 import { useMutation, useQuery, useQueryClient } from "react-query";
+import { initialQueryParam } from "./../Customers/helpers";
 import * as API_URL from "../../../network/api";
 import AXIOS from "../../../network/axios";
-import UsersSkeleton from "./UsersSkeleton";
-import { initialQueryParam } from "./helpers";
-import AddUser from "./AddUser";
-import { successMsg } from "./../../Shared/SuccessMsg/index";
-import logoLeaf from "../../../../src/assets/Image/logo png sm.png";
+import { successMsg } from "../../Shared/SuccessMsg";
+import { Box, Drawer, Grid, Stack, Typography } from "@mui/material";
+import SearchContainer from "../Customers/SearchContainer";
+import UserCard from "../Customers/UserCard";
+import { userCardSx } from "../Customers";
+import UsersSkeleton from "../Customers/UsersSkeleton";
 import StyledPagination from "../../Common/Component/Pagination";
-import UserCard from "./UserCard";
+
+import logoLeaf from "../../../../src/assets/Image/logo png sm.png";
+import AddAdmin from "./AddAdmin";
 import ConfirmModal from "../../Common/Component/ConfirmModal";
+import useAuth from "../../../hooks/useAuth";
 
-export const userCardSx = {
-  // width: { lg: "295px", xs: "100%" },
-  maxWidth: { md: "295px", xs: "100%" },
-  height: "60px",
-  flex: 1,
-  borderRadius: "16px",
-  background: "#FFF",
-  boxShadow:
-    "rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px",
-
-  padding: "16px 9px",
-};
-
-function Customers() {
+function Admin() {
   const [open, setOpen] = useState(false);
+
+  const { user } = useAuth();
 
   const [isOpenConfirmModal, setIsOpenConfirmModal] = useState(false);
 
@@ -40,9 +32,9 @@ function Customers() {
   const [currentUser, setCurrentUser] = useState({});
   // get users query
   const getUsersQuery = useQuery(
-    [API_URL.USERS, queryParams],
+    [API_URL.ADMIN, queryParams],
     () =>
-      AXIOS.get(API_URL.USERS, {
+      AXIOS.get(API_URL.ADMIN, {
         params: queryParams,
       }),
     {
@@ -55,13 +47,12 @@ function Customers() {
     }
   );
 
-  const addUserQuery = useMutation((data) => AXIOS.post(API_URL.USERS, data), {
+  const addUserQuery = useMutation((data) => AXIOS.post(API_URL.ADMIN, data), {
     onSuccess: (data) => {
-      console.log("data", data);
       if (data?.status) {
         successMsg(data?.message, "success");
         setOpen(false);
-        queryClient.invalidateQueries(API_URL.USERS);
+        queryClient.invalidateQueries(API_URL.ADMIN);
       } else {
         successMsg(data?.message, "warn");
       }
@@ -69,14 +60,14 @@ function Customers() {
   });
 
   const deleteUserQuery = useMutation(
-    () => AXIOS.delete(API_URL.USERS + `/${currentUser?._id}`),
+    () => AXIOS.delete(API_URL.ADMIN + `/${currentUser?._id}`),
     {
       onSuccess: (data) => {
         console.log("data", data);
         if (data?.status) {
           successMsg(data?.message, "success");
           setIsOpenConfirmModal(false);
-          queryClient.invalidateQueries(API_URL.USERS);
+          queryClient.invalidateQueries(API_URL.ADMIN);
         } else {
           successMsg(data?.message, "warn");
         }
@@ -85,7 +76,7 @@ function Customers() {
   );
 
   const updateUserQuery = useMutation(
-    (data) => AXIOS.put(API_URL.USERS + `/${currentUser?._id}`, data),
+    (data) => AXIOS.put(API_URL.ADMIN + `/${currentUser?._id}`, data),
     {
       onSuccess: (data) => {
         console.log("data", data);
@@ -93,7 +84,7 @@ function Customers() {
           successMsg(data?.message, "success");
           setOpen(false);
           setCurrentUser({});
-          queryClient.invalidateQueries(API_URL.USERS);
+          queryClient.invalidateQueries(API_URL.ADMIN);
         } else {
           successMsg(data?.message, "warn");
         }
@@ -124,14 +115,17 @@ function Customers() {
         <Grid item sm={12} md={4} sx={{ width: { xs: "100%", lg: "auto" } }}>
           {!getUsersQuery?.isLoading ? (
             <Box sx={{ minHeight: "90%" }}>
-              {getUsersQuery?.data?.users?.length > 0 ? (
+              {getUsersQuery?.data?.admins?.length > 0 ? (
                 <Stack gap={4} flex={1}>
-                  {getUsersQuery?.data?.users?.map((user, i) => (
+                  {getUsersQuery?.data?.admins?.map((userData, i) => (
                     <UserCard
                       key={i}
-                      user={user}
+                      isAdmin={true}
+                      user={userData}
+                      disableNavigate={true}
                       onClickDeleteButton={onClickDeleteButton}
                       getCurrentUser={getCurrentUser}
+                      disabledDeleteBtn={user?._id === userData?._id}
                     />
                   ))}
                 </Stack>
@@ -192,7 +186,7 @@ function Customers() {
       </Grid>
 
       <Drawer open={open} anchor="right">
-        <AddUser
+        <AddAdmin
           currentUser={currentUser}
           addUserQuery={currentUser?._id ? updateUserQuery : addUserQuery}
           onClose={() => {
@@ -214,4 +208,4 @@ function Customers() {
   );
 }
 
-export default Customers;
+export default Admin;
