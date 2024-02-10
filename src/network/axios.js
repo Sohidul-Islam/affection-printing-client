@@ -65,7 +65,7 @@ AXIOS.interceptors.response.use(
       (error?.response?.status === 401 || error?.response?.status === 403) &&
       error?.response?.data === "Forbidden"
     ) {
-      window.location.href("/login");
+      window.location.href = "/login";
     }
 
     console.log("api error:", error);
