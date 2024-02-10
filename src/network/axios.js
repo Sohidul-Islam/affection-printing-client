@@ -61,13 +61,6 @@ AXIOS.interceptors.response.use(
      * Add logic for any error from backend
      */
 
-    if (
-      (error?.response?.status === 401 || error?.response?.status === 403) &&
-      error?.response?.data === "Forbidden"
-    ) {
-      window.location.href = "/login";
-    }
-
     console.log("api error:", error);
     return Promise.reject(error);
   }

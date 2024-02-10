@@ -40,7 +40,6 @@ function Layout() {
 
           setAdminDataIsLoading(false);
         } else {
-          removeAuthCookies();
           successMsg(data?.message, "warn");
           navigate("/login");
         }
@@ -51,6 +50,7 @@ function Layout() {
   const verifiedUuser = () => {
     // no cookie found inside user browser
     if (document.cookie.length < 1) {
+      console.log("All cookie are missing");
       setAdminDataIsLoading(false);
       navigate("/login");
       return;
@@ -60,13 +60,14 @@ function Layout() {
 
     // any cookie is missing
     if (!account_id || !access_token) {
+      console.log("some cookie is missing");
       removeAuthCookies();
       setAdminDataIsLoading(false);
       navigate("/login");
       return;
     }
 
-    verifiedMutation.mutate({ id: account_id });
+    if (account_id) verifiedMutation.mutate({ id: account_id });
   };
 
   useEffect(() => {
