@@ -4,6 +4,7 @@ import { CustomerStyle } from ".";
 
 function DefaultCustomerAddress({ data, type }) {
   const { user, date, serialNo } = data;
+
   return (
     <View style={{ paddingHorizontal: 20 }}>
       <View style={CustomerStyle.docsTypeContainer}>

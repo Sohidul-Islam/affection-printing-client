@@ -102,7 +102,7 @@ const getBillData = (data, convertedDate) => {
         ...data,
         dues: [{ ...first, due: totalDue }],
         serialNo: data?.billNo,
-        date: moment(convertedDate).format("DD MMMM, YYYY"),
+        date: convertedDate,
       };
     }
 
@@ -110,7 +110,7 @@ const getBillData = (data, convertedDate) => {
       ...data,
       dues: [],
       serialNo: data?.billNo,
-      date: moment(convertedDate).format("DD MMMM, YYYY"),
+      date: convertedDate,
     };
   }
 
@@ -124,17 +124,16 @@ const getBillData = (data, convertedDate) => {
 
 export const getPdfData = (data, type) => {
   const dateString = data?.date;
-  const format = "DD/MM/YYYY";
-  const isValidDate = moment(data?.date).month();
-  const convertedDate = !isNaN(isValidDate)
-    ? moment(data?.date, format)
-    : moment(dateString, format).toDate();
+
+  const format = dateString.includes("/") ? "DD/MM/YYYY" : "YYYY-MM-DD";
+
+  const convertedDate = moment(dateString, format).format("DD MMMM, YYYY");
 
   if (type === "challan") {
     return {
       ...data,
       serialNo: data?.challanNo,
-      date: moment(convertedDate).format("DD MMMM, YYYY"),
+      date: convertedDate,
     };
   }
 
@@ -143,14 +142,14 @@ export const getPdfData = (data, type) => {
   console.log({
     convertedDate,
     dateString,
-    formate: moment(convertedDate).format("DD MMMM, YYYY"),
+    formate: convertedDate,
   });
 
   if (type === "quotation")
     return {
       ...data,
       serialNo: data?.quotationNo,
-      date: moment(convertedDate).format("DD MMMM, YYYY"),
+      date: convertedDate,
     };
 };
 
