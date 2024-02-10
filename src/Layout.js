@@ -47,7 +47,7 @@ function Layout() {
     }
   );
 
-  const verifiedUuser = () => {
+  const verifiedUser = () => {
     // no cookie found inside user browser
     if (document.cookie.length < 1) {
       console.log("All cookie are missing");
@@ -71,7 +71,7 @@ function Layout() {
   };
 
   useEffect(() => {
-    verifiedUuser();
+    verifiedUser();
   }, []);
 
   return (
