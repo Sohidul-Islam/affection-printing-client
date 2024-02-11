@@ -136,8 +136,6 @@ function Quotation() {
         if (data?.status) {
           successMsg(data?.message, "success");
 
-          console.log("data?.quotation add", data?.quotation);
-
           setQuotation((prev) => ({
             ...prev,
             ...data?.quotation,
@@ -156,8 +154,6 @@ function Quotation() {
       onSuccess: (data) => {
         if (data?.status) {
           successMsg(data?.message, "success");
-
-          console.log("data?.quotation", data?.quotation);
 
           setQuotation((prev) => ({
             ...prev,

@@ -130,10 +130,6 @@ function ChallanPage() {
       onSuccess: (data) => {
         if (data?.status) {
           setSearchedUsersOptions((prev) => {
-            console.log(
-              "userData",
-              data?.users?.length > 0 ? data?.users : prev
-            );
             return data?.users?.length > 0 ? data?.users : prev;
           });
         }
@@ -145,7 +141,6 @@ function ChallanPage() {
   const getUsers = useMemo(
     () =>
       debounce((value) => {
-        console.log("value search key: ", value);
         setSearchKey(value);
         usersQuery.mutate();
       }, 300),
@@ -172,7 +167,6 @@ function ChallanPage() {
   // onadd challan
   const addChallanHandler = (data) => {
     setChallan((prev) => {
-      console.log("length:", prev?.length + 1);
       return {
         ...prev,
         challans: [...prev.challans, { ...data }],
@@ -233,7 +227,6 @@ function ChallanPage() {
             noOptionsText: usersQuery?.isLoading ? "Loading..." : "No Users",
             filterOptions,
             getOptionLabel: (option) => {
-              console.log("option?.name", option?.name);
               return challan?.user?._id === option?._id
                 ? option?.name
                 : `${option?.name} (${option?.phone})`;

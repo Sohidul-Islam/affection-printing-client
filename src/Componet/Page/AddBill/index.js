@@ -141,7 +141,7 @@ function AddBills() {
       onSuccess: (data) => {
         if (data?.status) {
           successMsg(data?.message, "success");
-          console.log("data===>bill", data?.bill?.dues);
+
           setTotalDue(
             data?.bill?.dues?.reduce((acc, item) => acc + item?.due, 0) || 0
           );

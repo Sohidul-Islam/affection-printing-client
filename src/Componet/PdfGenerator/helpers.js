@@ -93,7 +93,7 @@ const getBillData = (data, convertedDate) => {
   const totalDue = mergedDue.reduce((prev, item) => prev + item?.due, 0);
 
   const finalDues = totalDue > 0 ? mergedDue : [];
-  console.log("finalDues", finalDues, totalDue);
+
   if (!data?.showIndividualDues) {
     const [first, ...rest] = finalDues;
 
@@ -139,12 +139,6 @@ export const getPdfData = (data, type) => {
 
   if (type === "bill") return getBillData(data, convertedDate);
 
-  console.log({
-    convertedDate,
-    dateString,
-    formate: convertedDate,
-  });
-
   if (type === "quotation")
     return {
       ...data,
@@ -155,6 +149,6 @@ export const getPdfData = (data, type) => {
 
 export const viewDuesOrNot = (data) => {
   const isAddedDues = data?.dues?.length > 0;
-  console.log("call", data?.dues);
+
   return isAddedDues;
 };

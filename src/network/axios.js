@@ -69,7 +69,7 @@ AXIOS.interceptors.response.use(
       window.location.href = "/login";
     }
 
-    if (error?.response?.data) console.log("api error:", error);
+    console.log("api error:", error);
     return Promise.reject(error);
   }
 );

@@ -8,7 +8,6 @@ import UserAvater from "./UserAvater";
 import InfoCard from "./InfoCard";
 
 function Profile({ data }) {
-  console.log("getUserQuery", data);
   return (
     <Stack>
       <UserAvater

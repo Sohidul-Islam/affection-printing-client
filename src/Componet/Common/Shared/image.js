@@ -28,14 +28,11 @@ export const getImageUrl = async (image) => {
 
   const data = await uploadImage(image);
 
-  console.log("data", data?.data?.url);
-
   if (data?.data?.url) {
     return data?.data?.url;
   }
 
   successMsg(data.message, "error");
-  console.log(data.message);
 
   return null;
 };

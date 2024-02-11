@@ -19,7 +19,7 @@ function AddAdmin({ onClose, addUserQuery, currentUser }) {
         preview: URL.createObjectURL(file),
       })
     );
-    console.log("newFiles", newFiles);
+
     setNewUser((prev) => ({
       ...prev,
       image: newFiles,

@@ -7,7 +7,6 @@ import { Stack } from "@mui/material";
 import DuesContainer from ".";
 
 function AddDues({ onClose, queryParams, dues, addDuesHandler }) {
-  console.log("queryParams", dues);
   return (
     <SideBarContainer title={"Add Dues"} onClose={onClose}>
       <Stack>

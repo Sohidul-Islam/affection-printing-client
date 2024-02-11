@@ -190,7 +190,6 @@ function Table({
       minWidth: 120,
       sortable: false,
       renderCell: ({ row }) => {
-        console.log({ row });
         return (
           <Stack gap={1}>
             <Typography
@@ -544,7 +543,6 @@ function Table({
           totalPage={totalPages}
           page={queryParams?.page}
           onChange={(_, page) => {
-            console.log("page", page);
             setQueryParams((prev) => ({ ...prev, page }));
           }}
         />

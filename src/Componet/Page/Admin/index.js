@@ -19,7 +19,7 @@ import useAuth from "../../../hooks/useAuth";
 function Admin() {
   const [open, setOpen] = useState(false);
 
-  const { user } = useAuth();
+  const { user, setUser } = useAuth();
 
   const [isOpenConfirmModal, setIsOpenConfirmModal] = useState(false);
 
@@ -39,7 +39,6 @@ function Admin() {
       }),
     {
       onSuccess: (data) => {
-        console.log("data", data);
         if (data.status) {
           setTotalPages(data?.paginatedData?.totalPages || 1);
         }
@@ -63,7 +62,6 @@ function Admin() {
     () => AXIOS.delete(API_URL.ADMIN + `/${currentUser?._id}`),
     {
       onSuccess: (data) => {
-        console.log("data", data);
         if (data?.status) {
           successMsg(data?.message, "success");
           setIsOpenConfirmModal(false);
@@ -79,11 +77,14 @@ function Admin() {
     (data) => AXIOS.put(API_URL.ADMIN + `/${currentUser?._id}`, data),
     {
       onSuccess: (data) => {
-        console.log("data", data);
         if (data?.status) {
           successMsg(data?.message, "success");
           setOpen(false);
           setCurrentUser({});
+          if (data?.admin?._id === user?._id) {
+            setUser((prev) => ({ ...prev, ...data?.admin }));
+          }
+
           queryClient.invalidateQueries(API_URL.ADMIN);
         } else {
           successMsg(data?.message, "warn");
@@ -158,7 +159,6 @@ function Admin() {
               totalPage={totalPages}
               page={queryParams?.page}
               onChange={(_, page) => {
-                console.log("page", page);
                 setQueryParams((prev) => ({ ...prev, page }));
               }}
             />

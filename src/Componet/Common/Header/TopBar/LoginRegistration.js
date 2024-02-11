@@ -2,11 +2,11 @@ import { AppRegistration, ExitToApp, Login } from "@mui/icons-material";
 import { Button, Stack, Typography } from "@mui/material";
 import React from "react";
 import StyledAvater from "../../../Shared/StyledAvater";
-import userDummy from "../../../../assets/user.jpg";
+
 import useAuth from "../../../../hooks/useAuth";
 import { removeAuthCookies } from "../../Helpers/helpers";
 function LoginRegistration() {
-  const { loginWithGoogle, logout, user } = useAuth();
+  const { logout, user } = useAuth();
 
   return (
     <Stack direction={"row"} alignItems={"center"} gap="16px">

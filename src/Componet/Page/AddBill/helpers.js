@@ -3,8 +3,6 @@ import { successMsg } from "../../Shared/SuccessMsg";
 import { isNumber } from "lodash";
 
 export const isVerifiedBill = (data) => {
-  console.log({ data });
-
   if (!data?.quantity) {
     successMsg("Please provide a quantity");
     return false;
@@ -98,8 +96,6 @@ export const getTotalAmount = (data) => {
 export const generatedDataForbill = (data) => {
   const dues = data?.dues?.map((bill) => bill?._id);
 
-  console.log("data", data, "dues", dues);
-
   return {
     ...data,
     user: data?.user?._id,
@@ -115,6 +111,5 @@ export const calculateDue = (bill) => {
 
   if (isNumber(Number(bill?.payment))) due -= Number(bill?.payment);
 
-  console.log("due", due);
   return due;
 };

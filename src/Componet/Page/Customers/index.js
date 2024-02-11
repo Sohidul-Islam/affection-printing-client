@@ -47,7 +47,6 @@ function Customers() {
       }),
     {
       onSuccess: (data) => {
-        console.log("data", data);
         if (data.status) {
           setTotalPages(data?.paginatedData?.totalPages || 1);
         }
@@ -57,7 +56,6 @@ function Customers() {
 
   const addUserQuery = useMutation((data) => AXIOS.post(API_URL.USERS, data), {
     onSuccess: (data) => {
-      console.log("data", data);
       if (data?.status) {
         successMsg(data?.message, "success");
         setOpen(false);
@@ -72,7 +70,6 @@ function Customers() {
     () => AXIOS.delete(API_URL.USERS + `/${currentUser?._id}`),
     {
       onSuccess: (data) => {
-        console.log("data", data);
         if (data?.status) {
           successMsg(data?.message, "success");
           setIsOpenConfirmModal(false);
@@ -88,7 +85,6 @@ function Customers() {
     (data) => AXIOS.put(API_URL.USERS + `/${currentUser?._id}`, data),
     {
       onSuccess: (data) => {
-        console.log("data", data);
         if (data?.status) {
           successMsg(data?.message, "success");
           setOpen(false);
@@ -164,7 +160,6 @@ function Customers() {
               totalPage={totalPages}
               page={queryParams?.page}
               onChange={(_, page) => {
-                console.log("page", page);
                 setQueryParams((prev) => ({ ...prev, page }));
               }}
             />

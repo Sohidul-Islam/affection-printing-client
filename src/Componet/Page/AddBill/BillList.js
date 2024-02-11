@@ -45,7 +45,7 @@ function BillList({ bills = [], setBills, isReadOnly }) {
 
     setBills((prev) => {
       const due = totalAmount - prev?.advance;
-      console.log("due", due);
+
       return {
         ...prev,
         totalAmount: totalAmount,

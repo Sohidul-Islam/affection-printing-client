@@ -6,7 +6,6 @@ import { viewDuesOrNot } from "../helpers";
 import moment from "moment";
 // Table for challan
 const RowForBill = ({ bill, index }) => {
-  console.log("challan", bill);
   return (
     <View style={styles.tableRow}>
       <View style={styles.tableColsmRow}>
