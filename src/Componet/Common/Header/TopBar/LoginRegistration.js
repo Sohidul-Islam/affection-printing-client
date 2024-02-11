@@ -16,7 +16,7 @@ function LoginRegistration() {
           title={user?.name || user?.displayName || ""}
         />
       )}
-      {!user?.email && (
+      {/* {!user?.email && (
         <Button
           onClick={loginWithGoogle}
           color="primary"
@@ -25,7 +25,7 @@ function LoginRegistration() {
         >
           <Typography variant="body1">Login</Typography>
         </Button>
-      )}
+      )} */}
       {user?.email && (
         <Button
           color="primary"
