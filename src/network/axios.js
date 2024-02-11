@@ -52,7 +52,6 @@ AXIOS.interceptors.response.use(
     /**
      * Add logic for successful response
      */
-    console.log({ response });
 
     return response?.data || {};
   },
