@@ -61,7 +61,22 @@ AXIOS.interceptors.response.use(
      * Add logic for any error from backend
      */
 
-    console.log("api error:", error);
+    console.log(
+      "error data",
+      error?.response?.data,
+      error?.response?.data?.success
+    );
+
+    if (
+      error?.response?.data?.success === false &&
+      (error?.response?.data?.message === "Error!Token was not provided." ||
+        error?.response?.data?.message === "Invalid Token.")
+    ) {
+      successMsg(error?.response?.data?.message);
+      window.location.href = "/login";
+    }
+
+    if (error?.response?.data) console.log("api error:", error);
     return Promise.reject(error);
   }
 );
